@@ -1,107 +1,50 @@
-# Acoustic Room Geometry Reconstruction & Solvability Simulator
+# ILDARS lab: three walls, one first-order reflection
 
-This project is based on and extends the ray-tracing simulator originally created by Luca D'Agostino ([lucad8414/ildars-simulator](https://github.com/lucad8414/ildars-simulator)).
+This repository contains the code for my lab report in the course
+*Networks and Telematics* at the University of Freiburg
+(Chair of Computer Networks and Telematics).
 
-It has been customized, updated, and extended to investigate the **Acoustic Inverse Problem**—specifically proving whether an open/semi-open 2D polygonal room geometry (wall positions, source, and receiver) is **uniquely solvable** using the **Image Source Method (ISM)** and **Euclidean Distance Matrix (EDM)** unmixing.
+The report studies a two-dimensional ILDARS setup with one source, one
+receiver and three reflecting walls. The receiver gets six signals with the
+reflection descriptors `()`, `(w1)`, `(w1,w2)`, `(w2,w1)`, `(w1,w3)` and
+`(w2,w3)`. The report shows that the source and all three walls can be
+reconstructed from the directions of arrival and the time differences of
+these signals.
 
----
+## Origin of the code
 
-## Key Modifications & Additions
+The ray-tracing simulator (`engine.py`, `objects/`, `simmer.py`,
+`point.ipynb`) was written by **Luca Diringer**
+(original repository: https://github.com/lucad8414/ildars-simulator).
+I did not write it. I made some changes to it and added the scripts listed below.
 
-Compared to the base simulator, this repository introduces several improvements and dedicated research tooling:
+## What I added or changed
 
-1. **Ray-Tracing Engine Robustness & Geometry Handling**:
-   - Fixed ray propagation in open and semi-open geometric systems (`objects/ray.py` and `engine.py`), preventing infinite loops and missing intersection errors when rays escape into unbounded space.
-   - Added support for bounded wall segments (`BoundedLine`) in `custom_case_runner.py`.
-   - Improved interactive plotting prompts and file export handling.
+| File | Purpose |
+|------|---------|
+| `solvability_check.py` | Main check for the report. Implements the reconstruction method (two quadratic equations for the source distance `p`, walls as perpendicular bisectors), and runs the tests: example room, 5000 random rooms, Jacobian rank, noise study. Only needs `numpy` and `matplotlib`. Independent of the simulator. |
+| `report_case_simulation.py` | Runs the ray tracer on the example room of the report and lists the received image points and equal-distance pairs. |
+| `custom_case_runner.py`, `generate_plots.py`, `generate_dataset.py` | Earlier scripts for running the simulator on a fixed configuration and producing plots and data sets. |
+| `engine.py`, `objects/ray.py` | Small changes to run the simulator on my configurations. |
 
-2. **Solvability & Uniqueness Proof (`solvability_check.py`)**:
-   - Implements the numerical check of the solvability argument for the 3-wall, 1-source, 1-receiver laboratory case.
-   - Verifies whether the direct distance $p = \|S - R\|$ is the unique common positive root of geometric quadratics.
-   - Reconstructs wall positions from perpendicular bisectors and performs consistency verification on higher-order reflections.
-   - Exports verification figures and numerical results to `data/report_figures/`.
+Note: the data sets from `generate_dataset.py` group image-point pairs by
+*rounded* distances from traced rays. These are useful for seeing patterns,
+but they are not used as a proof of solvability, because the traced points
+are only accurate up to the receiver radius. The solvability argument is in
+the report and is checked numerically by `solvability_check.py`.
 
-3. **Parametric Experimentation & Dataset Generation (`generate_dataset.py`)**:
-   - Automated parametric sweeps across reflection orders ($k \in \{1, 2, 3, 4\}$), ray counts ($N \in \{5\,000, 20\,000, 50\,000\}$), and distance rounding precisions ($nd \in \{1, 2\}$).
-   - Automatically classifies equal-distance point pairs into true Coxeter symmetries (`Clear`) vs. spurious ghost collisions (`Rest`).
-   - Produces structured outputs in `data/solvability_dataset_summary.csv` and `data/solvability_dataset_details.json`.
+## How to run
 
-4. **Report Simulation & Plotting (`report_case_simulation.py` & `generate_plots.py`)**:
-   - Reproduces the exact acoustic room scenario presented in the lab report.
-   - Generates publication-ready figures in PDF and PNG formats.
+Python 3.10 or newer.
 
----
+    pip install -r requirements.txt
+    python solvability_check.py        # figures and results.json in data/report_figures/
+    python report_case_simulation.py   # simulator plot for the example room
 
-## Repository Structure
+## Example room used in the report
 
-```text
-ildars-simulator/
-├── data/                               # Generated datasets, plots, and report figures
-│   ├── plots/                          # Ray-tracing and image source visualization plots
-│   ├── report/                         # Reference report documents
-│   ├── report_figures/                 # Publication-ready figures and analysis summaries
-│   ├── solvability_dataset_summary.csv # Parametric simulation summary table
-│   └── solvability_dataset_details.json# Detailed equal-distance pair classifications
-├── objects/                            # Core geometric & ray-tracing objects
-│   ├── analytics.py                    # Reflection symmetry classification and algebraic reduction
-│   ├── dataset.py                      # Dataset manipulation utilities
-│   ├── line.py                         # 2D line representations and intersection geometry
-│   ├── point.py                        # 2D point operations
-│   ├── ray.py                          # Ray propagation and reflection logic (updated)
-│   └── vector.py                       # 2D vector mathematics
-├── custom_case_runner.py               # Runner with bounded line support for user geometry
-├── engine.py                           # Core simulation engine and ray propagation driver
-├── generate_dataset.py                 # Multi-order, multi-ray dataset generation pipeline
-├── generate_plots.py                   # Plot generation script for simulation runs
-├── report_case_simulation.py           # Simulation runner for lab report figures
-├── solvability_check.py                # Analytical and numerical solvability verification
-├── GEMINI_CONTEXT.md                   # Full mathematical formulation and empirical findings
-├── requirements.txt                    # Python dependencies
-└── README.md                           # Project documentation (this file)
-```
+Receiver `R = (0, 0)`, source `S = (0, 13)`. The walls are infinite lines through:
 
----
-
-## Installation
-
-Ensure you have Python 3.10+ installed. Install the required dependencies:
-
-```bash
-pip install -r requirements.txt
-```
-
----
-
-## Usage
-
-### 1. Run the Solvability Check
-Numerically verifies the unique solvability proof and generates report figures:
-```bash
-python solvability_check.py
-```
-Outputs are saved to `data/report_figures/`.
-
-### 2. Simulate the Lab Report Scenario
-Simulates the exact example room configuration and plots received rays and virtual image sources:
-```bash
-python report_case_simulation.py
-```
-
-### 3. Generate the Solvability Dataset
-Runs the multi-order ray-tracing sweep across ray counts and precisions:
-```bash
-python generate_dataset.py
-```
-
-### 4. Run the Core Simulator
-Run the interactive ray-tracing engine directly:
-```bash
-python engine.py
-```
-
----
-
-## Attribution & Acknowledgments
-
-- Original simulation architecture and ray-tracing concepts by **Luca D'Agostino**: [lucad8414/ildars-simulator](https://github.com/lucad8414/ildars-simulator).
-- Customizations, solvability verification, dataset generators, and bug fixes developed for this acoustic inverse problem research project.
+- `w1`: (-7, 15) and (-11, -8)
+- `w2`: (3, 15) and (9, 7)
+- `w3`: (9, 7) and (3, -8)
