@@ -1,0 +1,25 @@
+Order (k),Rounds (N),Precision (nd),Captured Images,Equal-Dist Keys,Clear (Algebraic),Rest (Ghost Pairs),Solvability Status,Elapsed Time (s)
+1,5000,1,4,0,0,0,Unique (Solvable),0.41
+1,5000,2,4,0,0,0,Unique (Solvable),0.41
+1,20000,1,4,0,0,0,Unique (Solvable),1.08
+1,20000,2,4,0,0,0,Unique (Solvable),1.08
+1,50000,1,4,0,0,0,Unique (Solvable),2.78
+1,50000,2,4,0,0,0,Unique (Solvable),2.78
+2,5000,1,6,2,5,0,Unique (Solvable),0.45
+2,5000,2,6,2,4,0,Unique (Solvable),0.45
+2,20000,1,7,3,8,0,Unique (Solvable),1.62
+2,20000,2,7,2,4,0,Unique (Solvable),1.62
+2,50000,1,7,3,8,0,Unique (Solvable),4.09
+2,50000,2,7,1,2,0,Unique (Solvable),4.09
+3,5000,1,6,2,5,0,Unique (Solvable),0.56
+3,5000,2,6,2,4,0,Unique (Solvable),0.56
+3,20000,1,10,9,25,0,Unique (Solvable),2.11
+3,20000,2,10,5,12,0,Unique (Solvable),2.11
+3,50000,1,10,9,23,2,Ambiguous (2 ghost pairs),5.51
+3,50000,2,10,4,9,0,Unique (Solvable),5.51
+4,5000,1,6,2,5,0,Unique (Solvable),0.66
+4,5000,2,6,2,4,0,Unique (Solvable),0.66
+4,20000,1,13,18,48,6,Ambiguous (6 ghost pairs),2.69
+4,20000,2,13,11,26,2,Ambiguous (2 ghost pairs),2.69
+4,50000,1,13,18,48,7,Ambiguous (7 ghost pairs),6.77
+4,50000,2,13,8,22,0,Unique (Solvable),6.77

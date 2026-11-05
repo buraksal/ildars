@@ -43,12 +43,22 @@ class Engine:
         beta = rng.uniform(low=np.pi/6, high=(np.pi - alpha))
         print(beta)
 
+        self.reciever = Point([0.0, 0.0])
+        self.sender   = Point([-1.0, 11.0])
+    
+        # 2. Define Walls using Start & End coordinates
+        w1 = Line(Point([-3.0, 17.0]), Vector(Point([-3.0, 17.0]), Point([-9.0, -9.0])))
+        w2 = Line(Point([3.0, 17.0]),  Vector(Point([3.0, 17.0]),  Point([9.0, -9.0])))
+        w3 = Line(Point([6.0, 5.5]),   Vector(Point([6.0, 5.5]),   Point([4.0, -9.0])))
+        
+        self.walls = [w1, w2, w3]
+
         # generate random starting point and line
-        base = Line(Point([-7.122, -16.432]), Vector(Point([0.,0.]), Point([20.891, -2.432]))) # 1
-        right = Line(Point([10.,15.]), Vector(Point([0.,0.]), Point([25.879, -41.891]))) # 2
-        left = Line(Point([-23.758, 0.453]), Vector(Point([0.,0.]), Point([4.499, 9.175]))) # 3
+        #base = Line(Point([-7.122, -16.432]), Vector(Point([0.,0.]), Point([20.891, -2.432]))) # 1
+        #right = Line(Point([10.,15.]), Vector(Point([0.,0.]), Point([25.879, -41.891]))) # 2
+        #left = Line(Point([-23.758, 0.453]), Vector(Point([0.,0.]), Point([4.499, 9.175]))) # 3
         additional = Line(Point([17.,-1.]), Vector(Point([0.,0.]), Point([0., 10.])))
-        self.walls = [base,right,left]
+        #self.walls = [base,right,left]
         # generate another line from the anfgular range to l1
 
         # generate another line from the angular range to l1
@@ -64,7 +74,7 @@ class Engine:
         while flag:
             flag = False
         
-        self.sender = Point([-3.123, 19.543])
+        # self.sender = Point([-3.123, 19.543])
         # think of some bounds: how far from each other? how far from each wall at least?
 
 
@@ -183,6 +193,17 @@ if __name__ == "__main__":
     e.generate()
     e.sound_events(reflection_order, True) # orders of reflection, which are allowed.
     e.create_edm()
+    # Extract equal-distance point pairs
+    e.compare_point_pair_distances(nd=1)  # nd = decimal rounding precision
+
+    # Filter distance pairs with more than 1 pair occurrence
+    my_custom_data = {}
+    for key, value in e.distance_pairs.items():
+        if len(value) > 1:
+            my_custom_data[key] = value
+
+    print("Custom Dataset Dictionary:")
+    print(my_custom_data)
     # print("Unfiltered EDM", e.edm)
     # print("Image points captured with (Position, Label): \n", e.images)
     line = ""
@@ -237,9 +258,14 @@ if __name__ == "__main__":
     fig.savefig(filename)
     plt.show()
 
-    save = True if str(input("Save this plot? Y / N: ")) == "Y" else False
-    if not save:
-       os.remove(filename) 
+    user_resp = str(input("Save this plot? Y / N: ")).strip().lower()
+    save = user_resp in ["y", "yes"]
+    if save:
+        print(f"Plot saved successfully to: {os.path.abspath(filename)}")
+    else:
+        if os.path.exists(filename):
+            os.remove(filename)
+        print("Plot discarded.")
     plt.close(fig)
 
 

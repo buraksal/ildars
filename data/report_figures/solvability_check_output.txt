@@ -1,0 +1,29 @@
+======================================================================
+Example room
+======================================================================
+physically possible paths up to order 2: ['()', '(1,)', '(2,)', '(3,)', '(1, 2)', '(1, 3)', '(2, 1)', '(2, 3)', '(3, 1)']
+  ()        angle =   90.0000 deg   delta =   0.0000   image = [ 0. 13.]
+  (w1)      angle =  132.6580 deg   delta =   8.0504   image = [-14.2642  15.4807]
+  (w1,w2)   angle =   76.9107 deg   delta =  19.5541   image = [ 7.3725 31.7083]
+  (w2,w1)   angle =  130.3019 deg   delta =  15.1804   image = [-18.2275  21.4917]
+  (w1,w3)   angle =   -5.2333 deg   delta =  18.8280   image = [31.6953 -2.9031]
+  (w2,w3)   angle =   33.5387 deg   delta =   9.1514   image = [18.4634 12.2386]
+  (A) coefficients: [ -0.422742  -6.190149 151.91537 ]  positive roots: [13.]
+  (B) coefficients: [   0.388748   11.314708 -212.789621]  positive roots: [13.]
+  accepted p: 13.000000000000005   true p: 13.0
+  source error: 5.329070518200751e-15
+  wall errors (deg, distance): [('0.0e+00', '3.6e-15'), ('0.0e+00', '0.0e+00'), ('0.0e+00', '3.6e-15')]
+  consistency residual at p: 5.0242958677880805e-15
+
+Jacobian 11x8: rank 8  singular values [4.14462e+01 1.61632e+01 1.03128e+01 1.31450e+00 8.08300e-01 2.61700e-01
+ 1.28200e-01 2.68000e-02]
+  directions only (6x8): rank 6    TDOAs only (5x8): rank 5
+  without one signal: {'(w1)': {'measurements': 9, 'rank': 8}, '(w1,w2)': {'measurements': 9, 'rank': 8}, '(w2,w1)': {'measurements': 9, 'rank': 8}, '(w1,w3)': {'measurements': 9, 'rank': 8}, '(w2,w3)': {'measurements': 9, 'rank': 8}}
+
+Random rooms: {'rooms': 5000, 'exactly_one_accepted': 5000, 'accepted_is_true': 5000, 'A_two_roots': 48, 'B_two_roots': 343, 'either_two_roots': 387, 'common_more_than_one': 0, 'max_source_error': 1.1506281194682169e-10, 'max_wall_angle_error': np.float64(1.4787793334710982e-06)}
+noise {'sigma_angle_deg': 0.01, 'sigma_delta': 0.001, 'src_median_closed': 0.00516116816803042, 'src_p90_closed': 0.012741140253584363, 'wall_median_closed': 0.01367641486220786, 'src_median_refined': 0.0043989103853178555, 'src_p90_refined': 0.01024339559396903, 'wall_median_refined': 0.010805181897731622}
+noise {'sigma_angle_deg': 0.1, 'sigma_delta': 0.01, 'src_median_closed': 0.058892729025380015, 'src_p90_closed': 0.126636184502185, 'wall_median_closed': 0.13895521826481969, 'src_median_refined': 0.042912089410162946, 'src_p90_refined': 0.10179115023659685, 'wall_median_refined': 0.10210640216320065}
+noise {'sigma_angle_deg': 0.5, 'sigma_delta': 0.05, 'src_median_closed': 0.31007347003905117, 'src_p90_closed': 0.6552442127291591, 'wall_median_closed': 0.7381417211273251, 'src_median_refined': 0.211955645476798, 'src_p90_refined': 0.5024083605833256, 'wall_median_refined': 0.46386737205808803}
+noise {'sigma_angle_deg': 1.0, 'sigma_delta': 0.1, 'src_median_closed': 0.5511389520282285, 'src_p90_closed': 1.3076949004308358, 'wall_median_closed': 1.413844735822455, 'src_median_refined': 0.45604006275840003, 'src_p90_refined': 1.0676192410315513, 'wall_median_refined': 1.0904767140801896}
+
+figures and results written to /sessions/rcw-014l7okqlzbft8b5tmzyux2y/mnt/Lab/simulation luca/ildars-simulator/data/report_figures

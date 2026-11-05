@@ -93,7 +93,11 @@ class Ray:
                     dist.append(math.inf)
             
             # take the closest legal intersecton
-            m = dist.index(min(dist))
+            min_d = min(dist)
+            if min_d == math.inf:
+                break
+
+            m = dist.index(min_d)
             block = m
             self.logger.append(m + 1)
             
@@ -104,6 +108,8 @@ class Ray:
             
             else:
                 int_point = walls[m].intersection(curr)
+                if int_point is None:
+                    break
                 new_line = walls[m].image(int_point, curr.anchor, show, o) # the line
         
 

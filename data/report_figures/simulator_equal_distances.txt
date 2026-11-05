@@ -1,0 +1,14 @@
+rounding to 1 decimal(s):
+      7.30: explained=[('I2', 'I'), ('I3', 'I23')]  unexplained=[]
+     14.50: explained=[('I2', 'I12'), ('I', 'I1'), ('I13', 'I3')]  unexplained=[]
+     18.50: explained=[('I2', 'I3'), ('I21', 'I31'), ('I', 'I23')]  unexplained=[]
+     20.20: explained=[('I2', 'I1'), ('I21', 'I'), ('I', 'I12')]  unexplained=[]
+     21.20: explained=[('I', 'I3'), ('I1', 'I31')]  unexplained=[]
+     32.90: explained=[('I2', 'I13'), ('I1', 'I23')]  unexplained=[]
+     35.50: explained=[('I', 'I13'), ('I', 'I31'), ('I1', 'I3')]  unexplained=[]
+     41.30: explained=[('I2', 'I31'), ('I21', 'I3')]  unexplained=[]
+rounding to 2 decimal(s):
+     20.12: explained=[('I2', 'I1'), ('I21', 'I')]  unexplained=[]
+     21.19: explained=[('I', 'I3'), ('I1', 'I31')]  unexplained=[]
+     35.48: explained=[('I', 'I31'), ('I1', 'I3')]  unexplained=[]
+     41.29: explained=[('I2', 'I31'), ('I21', 'I3')]  unexplained=[]
